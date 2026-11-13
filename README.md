@@ -1,1 +1,1 @@
-# This is about sample git sample example
+# This is about sample git example
