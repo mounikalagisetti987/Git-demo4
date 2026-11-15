@@ -4,7 +4,7 @@ pipeline {
      environment {
         TOMCAT_SERVER = 'ubuntu@3.16.255.30'
         TOMCAT_PATH = '/opt/tomcat'
-        WAR_FILE = 'target/Calculator.war'
+        WAR_FILE = 'Calculator-Maven-Project/target/Calculator.war'
     }
 
     stages {
