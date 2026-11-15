@@ -1,0 +1,65 @@
+pipeline {
+    agent any
+
+     environment {
+        TOMCAT_SERVER = 'ubuntu@3.16.255.30'
+        TOMCAT_PATH = '/opt/tomcat'
+        WAR_FILE = 'target/Calculator.war'
+    }
+
+    stages {
+
+        stage('Git Checkout') {
+            steps {
+                git branch: 'main',
+                    url: 'https://github.com/mounikalagisetti987/Git-demo4.git'
+            }
+        }
+
+        stage('Maven Build') {
+            steps {
+                sh 'mvn clean compile'
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+
+        stage('Package') {
+            steps {
+                sh 'mvn package'
+            }
+        }
+
+        stage('Verify WAR') {
+            steps {
+                sh 'ls -lh target/Calculator.war'
+            }
+        }
+
+        stage('Deploy to Tomcat') {
+            steps {
+                sh """
+                scp -o StrictHostKeyChecking=no ${WAR_FILE} ${TOMCAT_SERVER}:/tmp/Calculator.war
+
+                ssh -o StrictHostKeyChecking=no ${TOMCAT_SERVER} '
+                    sudo mv /tmp/Calculator.war ${TOMCAT_PATH}/webapps/Calculator.war
+                '
+                """
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Calculator application deployed successfully!'
+        }
+
+        failure {
+            echo 'Calculator application deployment failed!'
+        }
+    }
+}
