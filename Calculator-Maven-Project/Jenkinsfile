@@ -17,14 +17,12 @@ pipeline {
 
         stage('Maven Build') {
             steps {
-                sh '''
-                  pwd
-                  ls -la
-                  find . -name pom.xml
-                  '''
+                dir('Calculator-Maven-Project')
+                {
                  sh 'mvn clean compile'
                  sh 'mvn test'
                  sh 'mvn package'
+                }
             }
         }
 
