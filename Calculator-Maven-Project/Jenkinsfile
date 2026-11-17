@@ -17,30 +17,39 @@ pipeline {
 
         stage('Maven Build') {
             steps {
-                sh 'cd Git-demo4/Calculator-Maven-Project'
-                sh 'mvn clean compile'
+                dir('Git-demo4/Calculator-Maven-Project')
+                {
+                    
+                   sh 'mvn clean compile'
+                }   
                 
             }
         }
 
         stage('Run Tests') {
             steps {
-                sh 'cd Git-demo4/Calculator-Maven-Project'
-                sh 'mvn test'
+                dir('Git-demo4/Calculator-Maven-Project')
+                {
+                  sh 'mvn test'
+                }
             }
         }
 
         stage('Package') {
             steps {
-                sh 'cd Git-demo4/Calculator-Maven-Project'
-                sh 'mvn package'
+                dir('Git-demo4/Calculator-Maven-Project')
+                {
+                  sh 'mvn package'
+                }
             }
         }
 
         stage('Verify WAR') {
             steps {
-                sh 'Git-demo4/Calculator-Maven-Project'
-                sh 'ls -lh target/Calculator.war'
+                dir('Git-demo4/Calculator-Maven-Project')
+                {
+                  sh 'ls -lh target/Calculator.war'
+                }
             }
         }
 
