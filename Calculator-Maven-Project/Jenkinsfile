@@ -40,15 +40,5 @@ pipeline {
             }
         }
     }
-    }   
-
-    post {
-        success {
-            echo 'Calculator application deployed successfully!'
-        }
-
-        failure {
-            echo 'Calculator application deployment failed!'
-        }
     }
 }
