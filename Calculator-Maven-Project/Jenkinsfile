@@ -30,9 +30,9 @@ pipeline {
         stage('Deploy to Tomcat') {
             steps {
                 sh """
-                scp -o StrictHostKeyChecking=no ${WAR_FILE} ${TOMCAT_SERVER}:/tmp/Calculator.war
+                scp -o StrictHostKeyChecking=yes ${WAR_FILE} ${TOMCAT_SERVER}:/tmp/Calculator.war
 
-                ssh -o StrictHostKeyChecking=no ${TOMCAT_SERVER} '
+                ssh -o StrictHostKeyChecking=yes ${TOMCAT_SERVER} '
                     sudo mv /tmp/Calculator.war ${TOMCAT_PATH}/webapps/Calculator.war
                 '
                 """
