@@ -2,7 +2,7 @@ pipeline {
     agent any
 
      environment {
-        TOMCAT_SERVER = 'ubuntu@3.16.255.30'
+        TOMCAT_SERVER = 'ubuntu@13.184.19.144'
         TOMCAT_PATH = '/opt/tomcat'
         WAR_FILE = 'Calculator-Maven-Project/target/Calculator.war'
     }
