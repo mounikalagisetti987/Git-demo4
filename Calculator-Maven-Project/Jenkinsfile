@@ -22,40 +22,13 @@ pipeline {
                   ls -la
                   find . -name pom.xml
                   '''
-                    
-                   sh 'mvn clean compile'
-                 
-                
+                 sh 'mvn clean compile'
+                 sh 'mvn test'
+                 sh 'mvn package'
             }
         }
 
-        stage('Run Tests') {
-            steps {
-                dir('Git-demo4/Calculator-Maven-Project')
-                {
-                  sh 'mvn test'
-                }
-            }
-        }
-
-        stage('Package') {
-            steps {
-                dir('Git-demo4/Calculator-Maven-Project')
-                {
-                  sh 'mvn package'
-                }
-            }
-        }
-
-        stage('Verify WAR') {
-            steps {
-                dir('Git-demo4/Calculator-Maven-Project')
-                {
-                  sh 'ls -lh target/Calculator.war'
-                }
-            }
-        }
-
+               
         stage('Deploy to Tomcat') {
             steps {
                 sh """
