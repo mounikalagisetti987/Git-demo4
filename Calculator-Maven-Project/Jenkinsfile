@@ -29,6 +29,7 @@ pipeline {
                
         stage('Deploy to Tomcat') {
             steps {
+                sshagent(credentials:['TOMCAT-SERVER']){
                 sh """
                 scp -o StrictHostKeyChecking=yes ${WAR_FILE} ${TOMCAT_SERVER}:/tmp/Calculator.war
 
@@ -39,6 +40,7 @@ pipeline {
             }
         }
     }
+    }   
 
     post {
         success {
